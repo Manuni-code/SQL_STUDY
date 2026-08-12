@@ -1,1 +1,32 @@
+/* SQL DAY 4
 
+
+-----DDL CREATE TABLE
+-----This script creates a new table called persons
+*/
+
+
+CREATE TABLE persons(
+   id INT NOT NULL,
+   person_name VARCHAR(50) NOT NULL,
+   birth_date DATE,
+   phone VARCHAR NOT NULL,
+   CONSTRAINT pk_persons PRIMARY KEY(id)
+   )
+
+   ------ALTER TABLE Command
+   ALTER TABLE persons
+   ADD email VARCHAR(50) NOT NULL
+
+   -----Removing a column from the table
+   ALTER TABLE persons
+   DROP COLUMN phone 
+
+ -------Delete the table persons from the database
+ DROP TABLE persons
+
+-----the INSERT COMMAND
+INSERT INTO customers (id,first_name,country,score)
+VALUES (6,'Saul', 'Kenya', 5),
+       (7, 'Samantha', 'USA', NULL),
+       (8,'James', NULL, 100)
