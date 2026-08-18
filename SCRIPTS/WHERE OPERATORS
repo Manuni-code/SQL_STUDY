@@ -1,0 +1,91 @@
+----COMPARISON OPERATORS STUDY
+-------Retrieve all customers from Germany(=)
+SELECT 
+*
+FROM customers
+WHERE country = 'Germany'
+
+-------Retrieve all customers who are not from Germany(!=)
+SELECT
+*
+FROM customers
+WHERE country != 'Germany'
+
+---------Retrieve all customers with a score greater than 500(>)
+SELECT 
+*
+FROM customers
+WHERE score > 500
+
+-----------Retrieve all customers with a score of 500 or more(>=)
+
+SELECT
+*
+FROM customers
+WHERE score >= 500
+
+-----Retrieve all customers with a score of less than 500(<)
+SELECT
+*
+FROM customers
+WHERE score < 500
+
+---Retrieve all customers with a score of 500 or less(<=)
+SELECT
+*
+FROM customers WHERE score <= 500
+
+---LOGICALOPERATORS
+ ------Retrieve all customers from USA and have a score greater than 500(AND)
+ SELECT
+ * FROM customers
+ WHERE country = 'USA' AND score > 500
+  
+  ---Retrieve all customers who are from USA or have a score greater than 500(OR)
+
+  SELECT * 
+  FROM customers WHERE country = 'USA' OR score > 500
+
+  ---Retrieve all customers with a score NOT less tha 500 (NOT)
+  SELECT * 
+  FROM customers WHERE NOT score <500 
+
+  ---RANGE OPERATOR
+
+  ---retrieve all customers whose score is between 100 and 500 (BETWEEN)
+
+  SELECT
+  *
+  FROM customers WHERE score BETWEEN 100 AND 500
+
+  ----MEMBERSHIP OPERATORS
+  ----Retrieve all customers from either Germany OR USA(IN)
+
+  SELECT *
+  FROM customers WHERE country = 'USA' OR country = 'Germany'
+
+  SELECT *
+  FROM customers WHERE country IN ('USA', 'Germany')
+
+  ---SEARCH OPERATORS
+  ---Find all customers whose first name starts with M.(LIKE)
+
+  SELECT * 
+  FROM customers
+  WHERE first_name  LIKE 'M%'
+
+  ---Find all customers whose first name ends with n
+  SELECT * 
+  FROM customers
+  WHERE first_name  LIKE '%n'
+
+  ---Find all customers whose first name contains r
+  SELECT *
+  FROM customers 
+  WHERE first_name LIKE '%r%'
+
+  ---Find all customers whose first name has an r in the third position
+
+  SELECT *
+  FROM customers 
+  WHERE first_name LIKE '__r%'
