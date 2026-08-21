@@ -1,0 +1,48 @@
+---ADVANCED SQL JOINS
+------------Get all customers who haven't placed any order(Left Anti-Join)
+SELECT 
+* FROM customers c
+LEFT JOIN orders o
+ON c.id = o.customer_id
+WHERE o.customer_id IS NULL
+
+---get all orders without matching customers(Right Anti-Join)
+
+SELECT
+* 
+FROM customers c
+RIGHT JOIN orders o
+ON o.customer_id = c.id
+WHERE c.id IS NULL
+
+---OR
+SELECT 
+*
+FROM orders o
+LEFT JOIN customers c
+ON o.customer_id = c.id
+WHERE c.id IS NULL
+
+----Find customers without orders and orders without customers(Full Anti-Join)
+
+SELECT 
+*
+FROM customers c
+FULL JOIN orders o
+ON c.id = o.customer_id
+WHERE c.id IS NULL OR o.customer_id IS NULL
+
+---get all customers alongside their orders but only for customers who have placed an order(Without using INNER JOIN)
+
+SELECT
+*
+FROM customers c
+FULL JOIN orders o
+ON c.id = o.customer_id
+WHERE o.customer_id IS NOT NULL
+
+--generate all possible combinations of customers and orders(CROSS JOIN)
+
+SELECT
+* FROM customers
+CROSS JOIN orders
