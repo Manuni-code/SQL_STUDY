@@ -1,0 +1,18 @@
+----Concatenate firstname and country into one column
+SELECT
+  first_name,
+  country,
+  CONCAT(first_name,' ',country) AS name_country
+FROM customers
+
+---Transform the customers firstname to lowercase then to uppercase
+SELECT 
+ LOWER(first_name) AS first_name,
+ country,
+ UPPER(first_name) AS upper_name
+FROM customers;
+----find customers whose firstname contains leading or trailing spaces
+SELECT 
+first_name
+FROM customers
+WHERE first_name != TRIM(first_name);
