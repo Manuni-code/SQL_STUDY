@@ -1,0 +1,28 @@
+SELECT 
+3.516,
+ROUND(3.516,2) AS round_2,
+ROUND(3.516,1) AS round_1,
+ROUND(3.516,0) AS round_0
+
+SELECT
+-10,
+ABS(-10) abs_
+
+SELECT
+OrderID,
+'2026-09-01'  day,
+GETDATE()
+FROM Sales.Orders
+
+SELECT
+OrderID,
+CreationTime,
+YEAR(CreationTime) as year,
+DATEPART(YEAR,CreationTime) as year_pt,
+MONTH(CreationTime) as month,
+DATEPART(HOUR,CreationTime) as hour_pt,
+DATEPART(quarter,CreationTime) as Quarter_pt,
+DATEPART(weekday,CreationTime) as Weekday_pt,
+DATEPART(week,CreationTime) as week_pt,
+DAY(CreationTime) as day
+FROM Sales.Orders
