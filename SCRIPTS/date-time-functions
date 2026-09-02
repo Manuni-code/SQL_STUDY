@@ -26,3 +26,24 @@ DATEPART(weekday,CreationTime) as Weekday_pt,
 DATEPART(week,CreationTime) as week_pt,
 DAY(CreationTime) as day
 FROM Sales.Orders
+
+SELECT
+ OrderID,
+ CreationTime,
+ ----datename examples
+ DATENAME(month,CreationTime) as month_name,
+ DATENAME(weekday,CreationTime) as weekday_dn,
+ DATENAME(day,CreationTime) as day_dn,
+ ----datetrunc examples
+ DATETRUNC(minute,CreationTime) as min_dtr,
+ DATETRUNC(day,CreationTime) as day_dtr,
+ DATETRUNC(year,CreationTime) as year_dtr
+FROM Sales.Orders
+
+---using datetrunc
+SELECT
+  DATETRUNC(month,CreationTime) as Creation,
+  COUNT(*)
+  FROM Sales.Orders
+  GROUP BY DATETRUNC(month,CreationTime)
+
