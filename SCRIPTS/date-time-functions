@@ -46,4 +46,33 @@ SELECT
   COUNT(*)
   FROM Sales.Orders
   GROUP BY DATETRUNC(month,CreationTime)
+use cases
+use SalesDB
+SELECT
+  OrderID,
+  CreationTime,
+  EOMONTH(CreationTime) AS End_month,
+  CAST(DATETRUNC(MONTH,CreationTime) AS DATE)AS Start_of_month
+FROM Sales.Orders
+----how many orders were placed each year
+SELECT
+  year(OrderDate) OrderDate,
+  COUNT(*) AS NrOfOrders
+FROM Sales.Orders
+GROUP BY year(OrderDate)
+
+----how many orders were placed each month
+
+SELECT
+  DATENAME(month,OrderDate) as OrderMonth,
+  COUNT(*) nooforders
+FROM Sales.Orders
+GROUP BY DATENAME(MONTH,OrderDate)
+
+---Show all orders that were placed in the month of february
+SELECT
+   DATENAME(MONTH,OrderDate) as OrderDate,
+   OrderID
+FROM Sales.Orders
+WHERE MONTH(OrderDate) = 2
 
