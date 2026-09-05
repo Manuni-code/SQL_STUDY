@@ -75,4 +75,18 @@ SELECT
    OrderID
 FROM Sales.Orders
 WHERE MONTH(OrderDate) = 2
+use SalesDB
+SELECT
+  OrderID,
+  CreationTime,
+  FORMAT(CreationTime,'MM-dd-yyyy') NCT,
+  FORMAT(CreationTime,'dd-MMM-yyyy') EU_NCT,
+  FORMAT(CreationTime,'dd') dd,
+  FORMAT(CreationTime, 'ddd') as day,
+  FORMAT(CreationTime, 'dddd') as dddd,
+    FORMAT(CreationTime,'MM') MM,
+  FORMAT(CreationTime, 'MMM') as Month,
+  FORMAT(CreationTime, 'MMMM') as MMMM
+FROM Sales.Orders
+
 
