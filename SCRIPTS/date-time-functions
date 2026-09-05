@@ -89,4 +89,48 @@ SELECT
   FORMAT(CreationTime, 'MMMM') as MMMM
 FROM Sales.Orders
 
+---Show CreationTime using the following format:
+----Day Wed Jan Q1 2025 12:34:56 PM
+
+SELECT
+    OrderID,
+    CreationTime,
+    'Day ' + FORMAT(CreationTime,'ddd MMM') + 
+    ' Q' + DATENAME(quarter,CreationTime) +' '+
+    FORMAT(CreationTime, 'yyyy hh:mm:ss tt') as CustomerFormat
+FROM Sales.Orders 
+
+---USE CASE
+
+SELECT 
+    FORMAT(OrderDate,'MMM yy') as OrderDate,
+    COUNT(*)
+FROM Sales.Orders
+GROUP BY FORMAT(OrderDate,'MMM yy')
+
+
+SELECT 
+  CONVERT(INT,'123') AS [String to Int CONVERT],
+  CONVERT(DATE, '2025-01-13') AS [String to DATE CONVERT],
+  CreationTime,
+  CONVERT(DATE,CreationTime) AS [Datetime to Date Convert]
+FROM Sales.Orders
+
+SELECT
+    CreationTime,
+    CONVERT(DATE,CreationTime) AS [Datetime to Date CONVERT],
+    CONVERT(VARCHAR,CreationTime,32) AS [USA Std. Style: 32],
+    CONVERT(VARCHAR,CreationTime,34) AS [EUR Std. Style: 34]
+FROM Sales.Orders
+
+---CAST
+
+SELECT
+  CAST('123' AS INT) AS [String to INT],
+  CAST(123 AS VARCHAR) AS [INT to String],
+  CAST('2026-3-01' AS DATE) AS [String to Date],
+   CAST('2026-3-01' AS DATETIME2) AS [String to Datetime2],
+   CreationTime,
+   CAST(CreationTime AS DATE) AS [Creationtime date]
+FROM Sales.Orders
 
