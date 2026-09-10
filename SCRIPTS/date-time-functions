@@ -134,3 +134,48 @@ SELECT
    CAST(CreationTime AS DATE) AS [Creationtime date]
 FROM Sales.Orders
 
+
+----DATEADD examples
+SELECT 
+  OrderID,
+  OrderDate,
+  DATEADD(day,-10,OrderDate) TenDaysEarly,
+  DATEADD(month,3,OrderDate) ThreeMonthsLater,
+  DATEADD(year,2,OrderDate) twoyearslater
+FROM Sales.Orders;
+
+---calculate the age of employees
+SELECT
+ EmployeeID,
+ BirthDate,
+ DATEDIFF(year,BirthDate,GETDATE())  Age
+ FROM Sales.Employees;
+
+ ---find the average shipping duration in days for each month
+ SELECT
+   MONTH(OrderDate) OrderDate,
+    AVG(DATEDIFF(day,OrderDate,ShipDate)) AvgShipDuration
+ FROM Sales.Orders
+ GROUP BY MONTH(OrderDate);
+
+ -----or as follows
+
+  SELECT
+   DATENAME(month,OrderDate) OrderDate,
+    AVG(DATEDIFF(day,OrderDate,ShipDate)) AvgShipDuration
+ FROM Sales.Orders
+ GROUP BY  DATENAME(month,OrderDate)
+
+ ---find the number of days between each order and the previous orders
+ SELECT
+    OrderID,
+    OrderDate CurrentOrderDate,
+    LAG(OrderDate) OVER (ORDER BY OrderDate) PreviousOrderDate,
+    DATEDIFF(day,LAG(OrderDate) OVER (ORDER BY OrderDate),OrderDate) NrOfDays
+FROM Sales.Orders;
+
+SELECT 
+  ISDATE('123') date_check1,
+  ISDATE('2025-08-20') date_check2,
+  ISDATE('20-08-2025') date_check3
+
