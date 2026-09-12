@@ -1,0 +1,19 @@
+ ----NULL FUNCTIONS
+ ---find the average score of the customers
+SELECT
+ CustomerID,
+ Score,
+ AVG(Score) OVER() AvgScore,
+ AVG(COALESCE(Score,0)) OVER() AvgScore1
+ FROM Sales.Customers
+
+ ---display the full name of the customer in a single field by merging the firstname and the lastname.
+ ---add 10 points to each customer's score
+ SELECT
+    CustomerID,
+    FirstName,
+    LastName,
+    FirstName + ' ' + COALESCE(LastName, ' ') AS FullName,
+    Score,
+    COALESCE(Score, 0) + 10 AS ScoreWithBonus
+FROM Sales.Customers
