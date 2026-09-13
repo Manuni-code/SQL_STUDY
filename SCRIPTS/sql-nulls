@@ -17,3 +17,43 @@ SELECT
     Score,
     COALESCE(Score, 0) + 10 AS ScoreWithBonus
 FROM Sales.Customers
+
+---Sort the customers from lowest to highest scores, with NULLS appearing last.
+SELECT
+  CustomerID,
+  Score
+FROM Sales.Customers
+ORDER BY CASE WHEN Score IS NULL THEN 1 ELSE 0 END, Score;
+
+----find the sales price for each order by dividing the sales by the quantity
+
+SELECT
+   OrderID,
+   Sales,
+   Quantity,
+   Sales/ NULLIF(Quantity,0) AS Price
+FROM Sales.Orders
+
+---identify the customers who have no scores
+
+SELECT
+   CustomerID,
+   Score
+FROM Sales.Customers
+where score is  null
+
+----list all customers who have scores
+SELECT
+   CustomerID,
+   Score
+FROM Sales.Customers
+where score is not null
+
+---list all details of customers who have not placed orders
+SELECT
+ c.*,
+ o.OrderID
+FROM Sales.Customers c
+LEFT JOIN Sales.Orders o
+ON c.CustomerID = o.CustomerID
+WHERE o.CustomerID IS NULL
