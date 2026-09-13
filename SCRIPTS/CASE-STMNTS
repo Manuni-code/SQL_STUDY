@@ -1,0 +1,48 @@
+/*generate a report showing the total sales for each category:
+  -High: if the sales are higher than 50
+  -Medium: if the sales are between 20 and 50
+  -Low: if the sales are equal or lower than 20
+  Sort the result from lowest to highest*/
+  SELECT
+   Category,
+   SUM(Sales) AS TotalSales
+   FROM(
+    
+      SELECT
+           OrderID,
+           Sales,
+           CASE WHEN Sales > 50 THEN 'High'
+                WHEN Sales > 20 THEN 'Medium'
+                ELSE 'Low'
+            END Category
+      FROM Sales.Orders
+      )t
+      GROUP BY Category
+      ORDER BY TotalSales DESC
+
+      ---retrieve employee details  with gender displayed as full text.
+       
+       SELECT
+         EmployeeID,
+         FirstName,
+         LastName,
+         Department,
+         BirthDate,
+         CASE WHEN Gender = 'M' THEN 'Male'
+              WHEN Gender = 'F' THEN 'Female'
+         END Gender,
+         Salary
+        FROM Sales.Employees;
+
+        ---retrieve customer details with abbreviated country codes
+
+    SELECT
+      CustomerID,
+      FirstName,
+      Country,
+      CASE Country 
+      WHEN 'Germany' THEN 'DE'
+           WHEN  'USA' THEN 'US'
+           ELSE 'not available'
+      END ContryCode
+    FROM Sales.Customers
