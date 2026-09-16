@@ -1,0 +1,26 @@
+Aggregate Functions
+---find the total number of orders
+SELECT
+   COUNT(*) AS TotalNmbrOfOrders
+FROM Orders
+
+--Find the total sales of all orders, average, highest sales of all orders,minimum sale
+SELECT
+  customer_id,
+  SUM(sales) AS TotalSales,
+  AVG(sales) as SalesAverage,
+  MAX(sales) AS HighestSale,
+  MIN(sales) AS LowestSale
+FROM Orders
+GROUP BY customer_id;
+
+SELECT
+  country,
+  COUNT(*) AS TotalNmbrOfScores,
+  SUM(Score) AS TotalScores,
+  AVG(Score) AS AvgScore,
+  MAX(Score) AS HighestScore,
+  MIN(Score) AS LowestScore
+FROM customers
+GROUP BY country
+ORDER BY country DESC
