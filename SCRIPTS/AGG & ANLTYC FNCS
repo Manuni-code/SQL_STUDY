@@ -24,3 +24,44 @@ SELECT
 FROM customers
 GROUP BY country
 ORDER BY country DESC
+
+WINDOW FUNCTIONS
+
+---find the total sales across all orders
+SELECT
+  SUM(sales) AS TotalSales
+FROM Sales.Orders;
+
+---find the total sales for each product
+SELECT
+  ProductID,
+  SUM(sales) AS TotalSales
+FROM Sales.Orders
+GROUP BY ProductID
+
+---Find the total sales for each product, additionaly provide order id and order date
+SELECT
+  OrderID,
+  OrderDate,
+  ProductID,
+  SUM(sales) OVER(PARTITION BY ProductID) AS TotalSalesByProducts
+FROM Sales.Orders
+
+---Find the total sales across all orders, additionaly provide details such as order id and order date
+SELECT 
+  OrderID,
+  OrderDate,
+  SUM(Sales) OVER() TotalSales
+FROM Sales.Orders
+
+---find the total sales across all orders
+---Find the total sales for each product. Provide addition details: order id & order date
+
+SELECT 
+   ProductID,
+   OrderID,
+   OrderDate,
+   Sales,
+   SUM(Sales) OVER() TotalSales,
+   SUM(Sales) OVER(PARTITION BY ProductID) TotalSalesByProduct
+FROM Sales.Orders
