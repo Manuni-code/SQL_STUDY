@@ -100,3 +100,76 @@ SELECT
     ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING) TotalSales
 FROM Sales.Orders
 
+
+---Count the total number of orders
+---Provide OrderID, OrderDate informations.
+---Find total Orders For each customer
+SELECT 
+OrderID,
+CustomerID,
+OrderDate,
+Sales,
+COUNT(*) OVER() AS TotalOrders,
+COUNT(*) OVER(PARTITION BY CustomerID) AS OrdersByCustomers
+FROM Sales.Orders
+
+---Find the total number of customers
+---Additionally provide all customer details
+SELECT 
+* ,
+COUNT(*) OVER() AS NumberOfCustomers
+FROM Sales.Customers
+
+---Find the total number of scores for the customers
+SELECT
+ *,
+ COUNT(Score) OVER() TotalScore
+FROM Sales.Customers
+
+----Check whether the table orders contains any duplicate rows
+SELECT
+*
+FROM
+(
+
+SELECT
+   OrderID,
+   COUNT(*) OVER(PARTITION BY OrderID) CheckPK
+FROM Sales.OrdersArchive)t
+WHERE CheckPK > 1
+
+---Find total sales accross all orders, total sales by product. provide OrderID,OrderDate
+SELECT
+  OrderID,
+  OrderDate,
+  ProductID,
+  Sales,
+  SUM(Sales) OVER(PARTITION BY ProductID) SalesByProduct,
+  SUM(Sales) OVER() TotalSales
+FROM Sales.Orders
+
+--Find the percentage contribution of each product's sales to the total sales
+SELECT
+   OrderID,
+   ProductID,
+   Sales,
+   SUM(Sales) OVER() TotalSales,
+   ROUND(CAST(Sales AS FLOAT) / SUM(Sales) OVER() * 100,2) PercentageOfTotal
+FROM Sales.Orders
+---Find the average sales across all orders, average sales by product
+SELECT
+    OrderID,
+    ProductID,
+    Sales,
+    AVG(Sales) OVER(PARTITION BY ProductID) AverageSalesByProduct,
+    AVG(Sales) OVER() AverageSales
+FROM Sales.Orders
+
+--Find the average scores for customers, provide customer id,lastname
+
+SELECT
+    CustomerID,
+    LastName,
+    Score,
+    AVG(COALESCE(Score,0)) OVER() AvgScore
+FROM Sales.Customers
