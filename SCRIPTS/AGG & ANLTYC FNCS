@@ -173,3 +173,54 @@ SELECT
     Score,
     AVG(COALESCE(Score,0)) OVER() AvgScore
 FROM Sales.Customers
+
+
+---find all orders where sales are higher than the average sales across all orders
+SELECT
+*
+FROM
+(
+SELECT
+   OrderID,
+   ProductID,
+   Sales,
+   AVG(Sales) OVER() AvgSales
+FROM Sales.Orders) t
+WHERE Sales>AvgSales;
+
+----Find the highest and lowest sales across all orders
+----highest and lowest sales for each product, provide OrderID and OrderDate
+
+SELECT
+   OrderID,
+   OrderDate,
+   ProductID,
+   Sales,
+   MIN(Sales) OVER() MinimumSales,
+   MAX(Sales) OVER() MaximumSales,
+   MIN(Sales) OVER(PARTITION BY ProductID) MinimumSalesPerProduct,
+   MAX(Sales) OVER(PARTITION BY ProductID) MaximumSalesPerProduct
+FROM Sales.Orders
+
+---Show the employees who have the highest salaries
+
+SELECT
+*
+FROM(
+SELECT
+ *,
+ MAX(Salary) OVER() HighestSalary
+FROM Sales.Employees) t
+WHERE Salary = HighestSalary;
+
+---calculate the deviation of each sale from the minimum and the maximum sale amounts
+SELECT
+   OrderID,
+   OrderDate,
+   ProductID,
+   Sales,
+   MIN(Sales) OVER() MinimumSales,
+   MAX(Sales) OVER() MaximumSales,
+   Sales - MIN(Sales) OVER() DeviationFromMin,
+   MAX(Sales) OVER()-Sales DeviationFromMax
+FROM Sales.Orders
